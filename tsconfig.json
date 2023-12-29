@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["dom", "es6"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false, // Enable strict type checking
+    "noImplicitAny": true, // Raise error on expressions and declarations with an implied 'any' type
+    "esModuleInterop": true // Enable import syntax for CommonJS and ES modules
+  }
+}
+
