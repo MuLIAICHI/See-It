@@ -1,61 +1,41 @@
-# Fetch Jobs
+# Job Postings Aggregation Project
 
-Fetch Jobs is a web scraping project that uses Puppeteer to scrape job listings from various websites and save them in a structured format.
+## Overview
 
-## Getting Started
+This project involves scraping job postings from various sources, storing them in a SQLite database, and exposing a FastAPI service for adding and retrieving job postings.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+## Project Structure
 
-### Prerequisites
+The project consists of the following components:
 
-- [Node.js](https://nodejs.org/) >= 14
-- [npm](https://www.npmjs.com/)
+1. **Scraping Scripts:**
+   - `scrapers/jobomasScraper.ts`: Puppeteer script for scraping job postings from Jobomas.
+   - `scrapers/joraScraper.ts`: Puppeteer script for scraping job postings from Jora.
+   - `scrapers/talentScraper.ts`: Puppeteer script for scraping job postings from Talent.
 
-### Installing
+2. **Data Models:**
+   - `main.py`: Defines the SQLAlchemy model for the job postings database schema (`JobPostingInDB`).
+   - `main.py`: Defines the Pydantic model for the FastAPI API schema (`JobPosting`).
 
-1. Clone the repository
+3. **Database Initialization:**
+   - `main.py`: Initializes the SQLite database (`sqlite_db.db`) and creates the necessary table (`job_postings`).
 
-2. Install the dependencies:
+4. **FastAPI Service:**
+   - `main.py`: Implements the FastAPI service with two endpoints:
+     - `POST /add-job-postings/`: Adds job postings to the database.
+     - `GET /get-job-postings/`: Retrieves job postings from the database.
 
-    ```sh
-    npm install
-    ```
+## How to Run the Project
 
-### Directory Structure
-
-ba-fetch-jobs/
-├── src/
-│ ├── scrapers/
-│ │ └── randstadScraper.js
-│ └── index.js
-├── data/
-├── logs/
-├── node_modules/
-├── .gitignore
-├── package.json
-└── README.md
-
-
-
-- `src/`: Contains the source code of the project.
-- `src/scrapers/`: Contains individual scraper scripts (e.g., `randstadScraper.js` for scraping Randstad's website).
-- `data/`: Contains the scraped data in structured formats like JSON, CSV.
-- `logs/`: Contains log files for error logging and activity logging.
-- `.gitignore`: A file containing patterns that describe the files that should not be tracked by Git.
-- `package.json`: Keeps track of all metadata relevant to the project, including dependencies.
-- `README.md`: A markdown file containing information and documentation about your project.
-
-### Running the Project
-
-1. Run the project using the following command:
-
-    ```sh
-    npm start
-    ```
-
-2. The scraped data will be saved in the `data` directory, and logs will be saved in the `logs` directory.
-
-## Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING](CONTRIBUTING.md) file for details on how to contribute to this project.
-
+1. **Install Dependencies:**
+   ```bash
+   pip install fastapi sqlalchemy uvicorn
+2. **Run the FastAPI Service:**
+      uvicorn main:app --reload
+3. **Execute Scrapers:**
+       Ensure Node.js and Puppeteer are installed.
+       Run the individual scraping scripts (scrapers/jobomasScraper.ts, scrapers/joraScraper.ts, scrapers/talentScraper.ts) to populate the job postings database.
+4. **Add Job Postings:**
+       Use the POST /add-job-postings/ endpoint to add job postings to the database.
+5. **Retrieve Job Postings:**
+      Use the GET /get-job-postings/ endpoint to retrieve job postings from the database.
